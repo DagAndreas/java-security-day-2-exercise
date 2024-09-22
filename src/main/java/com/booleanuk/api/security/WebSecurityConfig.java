@@ -59,13 +59,13 @@ public class WebSecurityConfig {
 				.exceptionHandling((exception) -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests((requests) -> requests
-						.requestMatchers("/auth/**").permitAll()  // Allow everyone to access the authentication endpoints
+						.requestMatchers("/auth/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/cds", "/cds/**", "/dvds", "/dvds/**",
-								"/videogames", "/videogames/**", "/boardgames", "/boardgames/**").permitAll()  // Allow any user to GET (read)
-						.requestMatchers(HttpMethod.POST, "/cds", "/dvds", "/videogames", "/boardgames").hasRole("ADMIN")  // Restrict POST to ADMIN role
-						.requestMatchers(HttpMethod.PUT, "/cds/**", "/dvds/**", "/videogames/**", "/boardgames/**").hasRole("ADMIN")  // Restrict PUT to ADMIN role
-						.requestMatchers(HttpMethod.DELETE, "/cds/**", "/dvds/**", "/videogames/**", "/boardgames/**").hasRole("ADMIN")  // Restrict DELETE to ADMIN role
-						.anyRequest().authenticated()  // Any other request must be authenticated
+								"/videogames", "/videogames/**", "/boardgames", "/boardgames/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/cds", "/dvds", "/videogames", "/boardgames").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/cds/**", "/dvds/**", "/videogames/**", "/boardgames/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/cds/**", "/dvds/**", "/videogames/**", "/boardgames/**").hasRole("ADMIN")
+						.anyRequest().authenticated()
 				);
 		http.authenticationProvider(authenticationProvider());
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
